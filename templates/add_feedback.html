@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Feedback{% endblock %}
+
+{% block content %}
+
+<h1 class="display-1">Add Feedback</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    {% for field in form %}
+    {% if field.name != 'csrf_token' %} <!-- Skip CSRF field -->
+    <div class="form-group">
+        {{ field.label }}
+        {{ field(class_='form-control') }}
+        {% for error in field.errors %}
+        <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">Add Feedback</button>
+</form>
+
+{% endblock %}

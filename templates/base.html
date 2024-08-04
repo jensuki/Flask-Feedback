@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Feedback</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light bg-primary justify-content-between">
+        <div class="container">
+            <a href="/" class="navbar-brand text-light">Flask Feedback</a>
+            <ul class="nav navbar-nav flex-row float-right">
+                {% if session['username'] %}
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link pr-3 text-light">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="/login" class="nav-link pr-3 text-light">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/register" class="nav-link text-light">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </nav>
+    <!--Flash messages-->
+    <div class="container my-3">
+        {% for category, msg in get_flashed_messages(with_categories=True) %}
+        <p class="alert alert-{{ category }}">{{ msg }}</p>
+        {% endfor %}
+    </div>
+    <div class="container mt-3">
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+
+</body>
+
+</html>
